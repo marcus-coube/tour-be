@@ -5,6 +5,12 @@ node_modules/
 # Default ignored files
 /shelf/
 /workspace.xml
+#env
+.env
+.env.local
+.env.development
+.env.production
+*.env
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
