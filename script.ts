@@ -16,3 +16,7 @@ main()
         await prisma.$disconnect()
         process.exit(1)
     })
+
+
+//    "prisma-migration": "npx prisma migrate dev --name nome_da_alteracao",
+//     "prisma-generate": "npx prisma generate"
