@@ -8,17 +8,16 @@ datasource db {
 }
 
 model partners {
-  id         String            @id(map: "partner_pk") @default(uuid())
-  name       String
-  logoUrl    String
-  address_id String
-  addresses  partner_address[] // Relação de um para muitos
-  vouchers   vouchers[]
-  //   specialty/type ? italiano / japones
+  id              String            @id(map: "partner_pk") @default(uuid())
+  name            String            @unique
+  logoUrl         String
+  partner_address partner_address[] // Relação de um para muitos
+  vouchers        vouchers[]
+  service_type    String?
 }
 
 model partner_address {
-  id           String  @id(map: "address_pk") @default(uuid())
+  id           String   @id(map: "address_pk") @default(uuid())
   street       String
   number       String
   neighborhood String
@@ -28,7 +27,7 @@ model partner_address {
   longitude    Decimal
   latitude     Decimal
   partner_id   String
-  partner      partner @relation(fields: [partner_id], references: [id])
+  partner      partners @relation(fields: [partner_id], references: [id])
 }
 
 model vouchers {
@@ -44,6 +43,6 @@ model vouchers {
 model users {
   id        String   @id(map: "user_pk") @default(uuid())
   email     String   @unique(map: "user_email_key")
-  name      String?
+  name      String
   createdAt DateTime @default(now())
 }
