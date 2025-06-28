@@ -1,16 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
+model partners {
+  id         String            @id(map: "partner_pk") @default(uuid())
+  name       String
+  logoUrl    String
+  address_id String
+  addresses  partner_address[] // Relação de um para muitos
+  vouchers   vouchers[]
+  //   specialty/type ? italiano / japones
 }
 
-// Exemplo de modelo
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String
+model partner_address {
+  id           String  @id(map: "address_pk") @default(uuid())
+  street       String
+  number       String
+  neighborhood String
+  zipCode      String
+  city         String
+  state        String
+  longitude    Decimal
+  latitude     Decimal
+  partner_id   String
+  partner      partner @relation(fields: [partner_id], references: [id])
+}
+
+model vouchers {
+  id          String   @id(map: "voucher_pk") @default(uuid())
+  title       String
+  description String
+  // hours    String
+  imageUrl    String
+  partner_id  String
+  partner     partners @relation(fields: [partner_id], references: [id])
+}
+
+model users {
+  id        String   @id(map: "user_pk") @default(uuid())
+  email     String   @unique(map: "user_email_key")
+  name      String?
   createdAt DateTime @default(now())
 }
