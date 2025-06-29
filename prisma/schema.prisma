@@ -44,5 +44,6 @@ model users {
   id        String   @id(map: "user_pk") @default(uuid())
   email     String   @unique(map: "user_email_key")
   name      String
+  password  String
   createdAt DateTime @default(now())
 }
