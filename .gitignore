@@ -9,7 +9,9 @@ node_modules/
 .env
 .env.local
 .env.development
+.env.staging
 .env.production
+.env.test
 *.env
 # Editor-based HTTP Client requests
 /httpRequests/

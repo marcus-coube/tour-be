@@ -5,6 +5,7 @@ import path from "path";
 
 import userRoutes from './api/routes/user/user.route'
 import partnerRoute from "./api/routes/partner/partner.route";
+import authRoute from "./api/routes/auth/auth.route";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.listen(PORT, () => {
     console.log(`Acesse através de: http://192.168.1.232:${PORT}`);
 });
 
+app.use('/auth', authRoute);
 app.use('/users', userRoutes);
 app.use('/partners', partnerRoute);
 

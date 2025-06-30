@@ -4,7 +4,13 @@ export class PartnerService {
     private prisma: PrismaClient;
 
     constructor() {
-        this.prisma = new PrismaClient();
+        this.prisma = new PrismaClient({
+            datasources: {
+                db: {
+                    url: process.env.DATABASE_URL
+                }
+            }
+        });
     }
 
     async getAllPartners(): Promise<partners[]> {

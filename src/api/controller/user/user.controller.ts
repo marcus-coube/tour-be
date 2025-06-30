@@ -51,14 +51,14 @@ export class UserController {
 
      async create(req: Request, res: Response) {
         try {
-            const { email, name, password } = req.body;
+            const { email, name, document, password } = req.body;
 
             // Validações básicas
             if (!email || !name || !password) {
                 return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
             }
 
-            const user = await this.userService.createUser({ email, name, password });
+            const user = await this.userService.createUser({ email, name, document, password });
             return res.status(201).json(user);
         } catch (error) {
             console.error('Erro ao criar usuário:', error);

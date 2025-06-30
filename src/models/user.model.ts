@@ -2,6 +2,7 @@ export class IUser {
     public id: string;
     public name: string;
     public email: string;
+    public document: string;
     public password?: string;
     public isAdmin?: boolean;  // Torne opcional
 
@@ -9,6 +10,7 @@ export class IUser {
         this.id = data.id;
         this.name = data.name;
         this.email = data.email;
+        this.document = data.document;
         this.password = data.password;
         this.isAdmin = !!data.isAdmin;
     }
@@ -18,5 +20,6 @@ export class IUser {
 export interface ICreateUser {
     email: string;
     name: string;
+    document: string;
     password: string;
 }
