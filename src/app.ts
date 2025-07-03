@@ -6,11 +6,12 @@ import path from "path";
 import userRoutes from './api/routes/user/user.route'
 import partnerRoute from "./api/routes/partner/partner.route";
 import authRoute from "./api/routes/auth/auth.route";
+import corsOptions from "./cors.config";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json()); // Adicionar esta linha para parsing de JSON
 app.use(express.static(path.join(__dirname, 'public')));
