@@ -37,26 +37,23 @@ export class AuthController {
                     email: user.email,
                     userId: user.id,
                     document: user.document,
-                    isAdmin: user.isAdmin || false,
                 },
                 process.env.JWT_SECRET as string,
                 {
-                    expiresIn: '24h',
+                    expiresIn: '90d',
                 }
             );
 
             const date = new Date();
-            date.setHours(date.getHours() + 24);
+            date.setMonth(date.getMonth() + 3);
 
             return res.status(200).json({
                 token,
                 expiresIn: date.getTime(),
-                user: {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    isAdmin: user.isAdmin || false,
-                }
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                document: user.document,
             });
         } catch (error) {
             console.error('Erro no login:', error);

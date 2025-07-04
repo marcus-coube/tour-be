@@ -5,6 +5,6 @@ const authRoutes: Router = express.Router();
 const authController = new AuthController();
 
 // @ts-ignore
-authRoutes.get('/login', authController.login);
+authRoutes.post('/login', authController.login);
 
 export default authRoutes;
