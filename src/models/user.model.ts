@@ -20,6 +20,11 @@ export class IUser {
 export interface ICreateUser {
     email: string;
     name: string;
+    lastName: string;
     document: string;
     password: string;
+    firebaseId: string;
+    method: 'INTERNAL' | 'GOOGLE'
+    emailConfirmed: boolean;
+    registrationComplete: boolean;
 }

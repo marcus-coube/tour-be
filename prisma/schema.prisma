@@ -13,7 +13,8 @@ model partners {
   logoUrl         String
   partner_address partner_address[] // Relação de um para muitos
   vouchers        vouchers[]
-  service_type    String?
+  serviceType     String?           @map("service_type")
+  createdAt       DateTime          @default(now()) @map("created_at")
 }
 
 model partner_address {
@@ -26,8 +27,9 @@ model partner_address {
   state        String
   longitude    Decimal
   latitude     Decimal
-  partner_id   String
-  partner      partners @relation(fields: [partner_id], references: [id])
+  partnerId    String   @map("partner_id")
+  partner      partners @relation(fields: [partnerId], references: [id])
+  createdAt    DateTime @default(now()) @map("created_at")
 }
 
 model vouchers {
@@ -36,15 +38,39 @@ model vouchers {
   description String
   // hours    String
   imageUrl    String
-  partner_id  String
-  partner     partners @relation(fields: [partner_id], references: [id])
+  partnerId   String   @map("partner_id")
+  partner     partners @relation(fields: [partnerId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at")
 }
 
 model users {
-  id        String   @id(map: "user_pk") @default(uuid())
-  email     String   @unique(map: "user_email_key")
-  name      String
-  document  String
-  password  String
-  createdAt DateTime @default(now())
+  id                   String   @id(map: "user_pk") @default(uuid())
+  email                String   @unique(map: "user_email_key")
+  name                 String
+  document             String
+  firebaseId           String   @unique @map("firebase_id")
+  method               String
+  emailConfirmed       Boolean  @default(false) @map("email_confirmed")
+  registrationComplete Boolean  @default(false) @map("registration_complete")
+  password             String
+  createdAt            DateTime @default(now()) @map("created_at")
 }
+
+//    update database from prisma/schema.prisma.ts
+//    npx prisma migrate dev --name nome_da_alteracao,
+
+//    generate
+//    npx prisma generate
+
+//     Run this file:
+//     npx tsx index.ts
+
+//    Reset database
+//    prisma migrate reset
+//    ou
+
+//    # Dropa o schema
+//      npx prisma db push --force-reset
+
+//   # Aplica o schema novamente
+//      npx prisma db push

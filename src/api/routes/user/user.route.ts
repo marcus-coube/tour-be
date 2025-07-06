@@ -9,7 +9,7 @@ userRoutes.get('/', userController.getAll);
 // @ts-ignore
 userRoutes.get('/:id', userController.getById);
 // @ts-ignore
-userRoutes.post('/', userController.create);
+userRoutes.post('/create', userController.create);
 
 
 export default userRoutes;

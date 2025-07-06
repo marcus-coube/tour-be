@@ -12,7 +12,7 @@ export class AuthController {
     }
 
     async login(req: Request, res: Response) {
-        console.log('logging')
+        console.log('logging in')
         try {
             const {email, password} = req.body;
 

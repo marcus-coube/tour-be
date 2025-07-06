@@ -15,24 +15,20 @@ export class UserService {
         });
     }
 
-    async createUser({ email, name, document, password}: ICreateUser) {
+    async createUser(data: ICreateUser) {
+        console.log('create user: ', data);
         const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(password, saltRounds);
+        const passwordHash = await bcrypt.hash(data.password, saltRounds);
+        data.password = passwordHash;
 
         // create user with hashed pass
         const user = await this.prisma.users.create({
-            data: {
-                email,
-                name,
-                document,
-                password: passwordHash
-            },
+            data: data,
         });
 
         // remove password before returning
         const { password: _, ...userWithoutPassword } = user;
         return userWithoutPassword;
-
     }
 
     async getUserByEmail(email: string): Promise<IUser | null> {
@@ -55,7 +51,7 @@ export class UserService {
                     name: true,
                     email: true,
                     document: true,
-                    createdAt: true,
+                    createdAt: true
                 }
             });
         } catch (error) {

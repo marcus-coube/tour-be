@@ -5,25 +5,19 @@
   "scripts": {
     "dev:local": "cross-env NODE_ENV=development dotenv -e .env.local -- nodemon src/app.ts",
     "dev:development": "cross-env NODE_ENV=development dotenv -e .env.development -- nodemon src/app.ts",
-
     "build": "tsc",
     "build:development": "cross-env NODE_ENV=development dotenv -e .env.development -- tsc",
-
     "start": "node dist/app.js",
     "start:development": "cross-env NODE_ENV=development dotenv -e .env.development -- node dist/app.js",
     "start:staging": "cross-env NODE_ENV=staging dotenv -e .env.staging -- node dist/app.js",
     "start:production": "cross-env NODE_ENV=production dotenv -e .env.production -- node dist/app.js",
-
     "db:push": "dotenv -e .env.local -- prisma db push",
     "db:push:dev": "dotenv -e .env.development -- prisma db push",
     "db:push:staging": "dotenv -e .env.staging -- prisma db push",
     "db:push:prod": "dotenv -e .env.production -- prisma db push",
-
     "db:insert:local": "dotenv -e .env.local -- npx tsx script.ts",
-
     "db:studio": "dotenv -e .env.local -- prisma studio",
     "db:studio:dev": "dotenv -e .env.development -- prisma studio",
-
     "test": "cross-env NODE_ENV=test dotenv -e .env.test -- jest"
   },
   "keywords": [],

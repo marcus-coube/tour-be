@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 });
 
 app.use('/auth', authRoute);
-app.use('/users', userRoutes);
+app.use('/user', userRoutes);
 app.use('/partners', partnerRoute);
 
 
