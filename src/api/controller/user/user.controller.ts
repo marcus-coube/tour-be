@@ -15,6 +15,7 @@ export class UserController {
         // Bind manual dos métodos
         this.getAll = this.getAll.bind(this);
         this.getById = this.getById.bind(this);
+        this.getByEmail = this.getByEmail.bind(this);
         this.create = this.create.bind(this);
     }
 
@@ -33,13 +34,36 @@ export class UserController {
         }
     }
 
+    async getByEmail(req: Request, res: Response) {
+        try {
+            console.log('getting user by email', req);
+            const email = req.params.email;
+
+            if (!email) {
+                return res.status(400).json({message: 'Email é obrigatório'});
+            }
+
+            const user = await this.userService.getUserByEmail(email);
+
+            if (!user) {
+                return res.status(404).json({message: 'Usuário não encontrado'});
+            }
+
+            const {password: _, ...userWithoutPassword} = user;
+            return res.status(200).json(userWithoutPassword);
+        } catch (error) {
+            console.error('Erro ao buscar usuário:', error);
+            return res.status(500).json({message: 'Erro interno do servidor'});
+        }
+    }
+
     async getById(req: Request, res: Response) {
         try {
             const {id} = req.params;
             const user = await this.userService.getUserById(id);
 
             if (!user) {
-                return res.status(404).json({error: 'Usuário não encontrado'});
+                return res.status(404).json({message: 'Usuário não encontrado'});
             }
 
             res.json(user);
@@ -60,7 +84,7 @@ export class UserController {
             const newUser = req.body;
             let createdUser: IUser;
             if (!newUser.method) {
-                return res.status(400).json({error: 'Método de cadastro inválido ou não informado'})
+                return res.status(400).json({message: 'Método de cadastro inválido ou não informado'})
             }
             switch (newUser.method) {
                 case 'INTERNAL':
@@ -104,7 +128,7 @@ export class UserController {
             }
         } catch (error) {
             console.error('Erro ao criar usuário:', error);
-            return res.status(500).json({error: 'Erro interno do servidor'});
+            return res.status(500).json({message: 'Erro interno do servidor'});
         }
     }
 

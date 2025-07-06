@@ -58,6 +58,10 @@ export class UserService {
                     id: true,
                     name: true,
                     email: true,
+                    method: true,
+                    firebaseId: true,
+                    emailConfirmed: true,
+                    registrationComplete: true,
                     document: true,
                     createdAt: true
                 }
@@ -75,6 +79,10 @@ export class UserService {
                     id: true,
                     name: true,
                     email: true,
+                    method: true,
+                    firebaseId: true,
+                    emailConfirmed: true,
+                    registrationComplete: true,
                     document: true,
                     createdAt: true
                 }

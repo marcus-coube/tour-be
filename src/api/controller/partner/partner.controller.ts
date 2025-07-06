@@ -33,7 +33,7 @@ export class PartnerController {
             const partner = await this.partnerService.getPartnerById(id);
 
             if (!partner) {
-                return res.status(404).json({error: 'Parceiro não encontrado'});
+                return res.status(404).json({message: 'Parceiro não encontrado'});
             }
 
             res.json(partner);

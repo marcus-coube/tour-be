@@ -4,7 +4,9 @@ export class IUser {
     public email: string;
     public document: string | null;
     public password?: string;
-    public isAdmin?: boolean;  // Torne opcional
+    public method: TUserCreationMethod;
+    public firebaseId: string;
+    public emailConfirmed: boolean;
 
     constructor(data: IUser) {
         this.id = data.id;
@@ -12,7 +14,9 @@ export class IUser {
         this.email = data.email;
         this.document = data.document;
         this.password = data.password;
-        this.isAdmin = !!data.isAdmin;
+        this.method = data.method;
+        this.firebaseId = data.firebaseId;
+        this.emailConfirmed = data.emailConfirmed;
     }
 }
 
@@ -24,7 +28,9 @@ export interface ICreateUser {
     document?: string;
     password: string;
     firebaseId: string;
-    method: 'INTERNAL' | 'GOOGLE'
+    method: TUserCreationMethod
     emailConfirmed: boolean;
     registrationComplete: boolean;
 }
+
+export type TUserCreationMethod = 'INTERNAL' | 'GOOGLE';

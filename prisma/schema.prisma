@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserCreationMethod {
+  INTERNAL
+  GOOGLE
+}
+
 model partners {
   id              String            @id(map: "partner_pk") @default(uuid())
   name            String            @unique
@@ -44,16 +49,16 @@ model vouchers {
 }
 
 model users {
-  id                   String   @id(map: "user_pk") @default(uuid())
-  email                String   @unique(map: "user_email_key")
+  id                   String             @id(map: "user_pk") @default(uuid())
+  email                String             @unique(map: "user_email_key")
   name                 String
   document             String?
-  firebaseId           String   @unique @map("firebase_id")
-  method               String
-  emailConfirmed       Boolean  @default(false) @map("email_confirmed")
-  registrationComplete Boolean  @default(false) @map("registration_complete")
+  firebaseId           String             @unique @map("firebase_id")
+  method               UserCreationMethod
+  emailConfirmed       Boolean            @default(false) @map("email_confirmed")
+  registrationComplete Boolean            @default(false) @map("registration_complete")
   password             String
-  createdAt            DateTime @default(now()) @map("created_at")
+  createdAt            DateTime           @default(now()) @map("created_at")
 }
 
 //    update database from prisma/schema.prisma.ts
