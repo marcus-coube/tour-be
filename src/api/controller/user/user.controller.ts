@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {UserService} from '../../../core/services/user.service';
 import {TypedRequestBody} from "../../../core/types/request";
 import {ICreateUser, IUser} from "../../../models/user.model";
+import crypto from 'crypto';
 
 type ICreateBodyReq = TypedRequestBody<ICreateUser>;
 
@@ -77,7 +78,7 @@ export class UserController {
                     }
                     newUser.name = `${newUser.name} ${newUser.lastName}`;
                     newUser.emailConfirmed = false;
-                    newUser.registrationComplete = true;
+                    newUser.registrationComplete = false;
                     createdUser = await this.userService.createUser(newUser)
                     return res.status(201).json(createdUser);
                 case 'GOOGLE':
@@ -96,7 +97,7 @@ export class UserController {
                     newUser.emailConfirmed = true;
                     newUser.registrationComplete = false;
                     newUser.name = `${newUser.name} ${newUser.lastName}`;
-                    
+                    newUser.password = crypto.randomUUID();
                     console.log('creating new user with google: ', newUser);
                     createdUser = await this.userService.createUser(newUser);
                     return res.status(201).json(createdUser);

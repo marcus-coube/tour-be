@@ -18,12 +18,20 @@ export class UserService {
     async createUser(data: ICreateUser) {
         console.log('create user: ', data);
         const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(data.password, saltRounds);
-        data.password = passwordHash;
+        data.password = await bcrypt.hash(data.password, saltRounds);
 
         // create user with hashed pass
         const user = await this.prisma.users.create({
-            data: data,
+            data: {
+                name: data.name,
+                document: data.document,
+                email: data.email,
+                password: data.password,
+                method: data.method,
+                emailConfirmed: !!data.emailConfirmed,
+                registrationComplete: !!data.registrationComplete,
+                firebaseId: data.firebaseId
+            },
         });
 
         // remove password before returning

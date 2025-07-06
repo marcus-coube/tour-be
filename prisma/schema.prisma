@@ -47,7 +47,7 @@ model users {
   id                   String   @id(map: "user_pk") @default(uuid())
   email                String   @unique(map: "user_email_key")
   name                 String
-  document             String
+  document             String?
   firebaseId           String   @unique @map("firebase_id")
   method               String
   emailConfirmed       Boolean  @default(false) @map("email_confirmed")
